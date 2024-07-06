@@ -1,9 +1,9 @@
-const dbURL =`mongodb+srv://majid_hashmi7:2OMeNuZwBWEpmYcw@scaler-cluster.33z31ho.mongodb.net/`;
+const db_URL = process.env.dbURL;
 const mongoose = require('mongoose');
 const mongoconnect = function (){
 
 
-mongoose.connect(dbURL)
+mongoose.connect(db_URL)
 .then(()=>{
 
     console.log("connected");
