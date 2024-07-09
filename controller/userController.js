@@ -1,4 +1,5 @@
 const userModel = require("../model/userModel");
+const jwt = require('jsonwebtoken');
 
 const createuserentry = async (req, res) => {
     const body = req.body;
@@ -32,6 +33,8 @@ const createuserentry = async (req, res) => {
 const loginuser = async (req,res) => {
 try{
     const user = await userModel.findOne({email:req.body.email});
+    const token = jwt.sign({userId:user._id},process.env.JWT_SECRET,{expiresIn:"1d"})
+    console.log(token)
     if(!user){
 
         return res.status(402).json({message:"user does not exist"});
@@ -40,16 +43,33 @@ try{
 
         return res.status(402).json({message:"password not matched"});
     }
-
-    return res.status(202).json(user);
+    
+   const newuser =   await userModel.findOne({email:req.body.email}).select('-password');
+    return res.status(202).json({message:newuser,data:token});
 }
 catch(err){
 
-    return res.status(404).json({message:err})
+    return res.status(402).json({message:"error is there"})
 }
 
     
 
 }
 
-module.exports = {createuserentry,loginuser};
+
+const currentuserlogin = async(req,res)=>{
+try{
+   const body=req.body;
+   const user = await userModel.findById(body.userId).select('-password');
+   console.log(user);
+    res.status(201).json({message:user});
+}
+
+catch(err){
+    
+
+    res.status(400).json({message:"something server error"});
+}
+}
+
+module.exports = {createuserentry,loginuser,currentuserlogin};
