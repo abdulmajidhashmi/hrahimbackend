@@ -6,10 +6,17 @@ const createuserentry = async (req, res) => {
     let checkpassword = '';
 
     try {
+
+        const checkuser = await userModel.findOne({email:body.email})
+
+        if(checkuser){
+            return res.send({success:false,message:"user already exists"});
+        }
+
         if (body.password === body.confirmpassword) {
             checkpassword = body.password
         } else {
-            return res.status(402).json({ message: "password do not match" })
+            return res.send({success:false, message: "password do not match" })
         }
         await userModel.create(
             {
@@ -17,14 +24,15 @@ const createuserentry = async (req, res) => {
                 surname: body.surname,
                 number: body.number,
                 email: body.email,
-                password: checkpassword
+                password: checkpassword,
+                role:"user"
             }
         )
 
-        return res.status(201).json({ message: "entry created" });
+        return res.send({ success:true,message: "entry created" });
     }
     catch (err) {
-        return res.status(403).json({ message: "not created", error: err });
+        return res.send({ success:false,message: "not created", error: err });
 
     }
 }

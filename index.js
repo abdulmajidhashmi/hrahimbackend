@@ -6,6 +6,7 @@ const cors=require('cors');
 const mongoconnect = require('./config/db');
 const productrouter = require('./routes/productroute')
 const userrouter = require('./routes/userRoutes');
+const orderrouter = require('./routes/orderRoute');
 
 
 app.use(cors());
@@ -13,6 +14,7 @@ mongoconnect();
 
 app.use('/productcreate',productrouter);
 app.use('/user',userrouter);
+app.use('/order',orderrouter);
 app.get("/",(req,res)=>{
 
     res.status(200).json("hi my name is abdul majid");
