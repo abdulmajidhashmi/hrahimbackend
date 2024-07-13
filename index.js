@@ -7,6 +7,7 @@ const mongoconnect = require('./config/db');
 const productrouter = require('./routes/productroute')
 const userrouter = require('./routes/userRoutes');
 const orderrouter = require('./routes/orderRoute');
+const adminauth = require('./middlewares/adminauth');
 
 
 app.use(cors());

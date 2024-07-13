@@ -4,43 +4,53 @@ const mongoose = require('mongoose');
 const mainSchema = new mongoose.Schema(
 
     {
-        "order": {
-          "items": {
-            "type": [
+        order: {
+          items: {
+            type: [
               "Mixed"
             ]
           },
-          "totalPrice": {
-            "type": "Number"
+          totalPrice: {
+            type: Number,
+            required:true
           }
         },
-        "orderuserdetails": {
-          "firstName": {
-            "type": "String"
+        orderuserdetails: {
+          firstName: {
+            type: String,
+            required:true
           },
-          "lastName": {
-            "type": "String"
+          lastName: {
+            type: String,
+            required:true
           },
-          "email": {
-            "type": "String"
+          email: {
+            type: String,
+            required:true
           },
-          "phone": {
-            "type": "Number"
+          phone: {
+            type: Number,
+            required:true
           },
-          "street": {
-            "type": "String"
+          street: {
+            type: String,
+            required:true
           },
-          "city": {
-            "type": "String"
+          city: {
+            type: String,
+            required:true
           },
-          "state": {
-            "type": "String"
+          state: {
+            type: String,
+            required:true
           },
-          "zipCode": {
-            "type": "String"
+          zipCode: {
+            type: String,
+            required:true
           },
-          "cash": {
-            "type": "String"
+          cash: {
+            type: String,
+            required:true
           }
         }
       }

@@ -29,5 +29,36 @@ const placeorder = async(req,res)=>{
 
 }
 
+const userorder = async (req,res)=>{
+const body=req.body.email;
+try{
+    const userorderdata = await orderModel.find({'orderuserdetails.email':body});
+    console.log(userorderdata);
+    res.send(userorderdata);
 
-module.exports ={placeorder};
+}
+catch(err){
+
+    res.send("there is error in server side",err);
+}
+
+
+}
+
+
+const alluserorder =async(req,res)=>{
+
+try{
+    const allorderdata = await orderModel.find();
+
+    res.send(allorderdata);
+    console.log(allorderdata);
+}
+catch(err){
+res.send("error from server",err)
+
+}
+
+}
+
+module.exports ={placeorder,userorder,alluserorder};
