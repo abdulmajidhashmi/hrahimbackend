@@ -8,7 +8,11 @@ const body = req.body
     price:body.price,
     mrp:body.mrp,
     weight:body.weight,
-    image:body.image
+    image1:body.image1,
+    image2:body.image2,
+    image3:body.image3,
+    image4:body.image4,
+    description:body.description
 })
 return res.status(201).json("entry created");
 }

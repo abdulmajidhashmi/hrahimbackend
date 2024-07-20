@@ -1,29 +1,29 @@
-const orderModel = require('../model/ordermodel');
+const orderModel = require('../model/ordermodel')
 
 
 const placeorder = async(req,res)=>{
-
+console.log("hi");
 
     const {order,orderuserdetails}=req.body;
-    if(!order || !orderuserdetails){
 
-        res.send({message:"please select the product and make payement"})
-    }
-    console.log(req.body);
+   
+    
 
     try{
 
-        const neworder=  new orderModel({
+        const neworder= new orderModel({
             order,orderuserdetails
-        })
+        });
 
             const savedorder = await neworder.save();
+            console.log(savedorder);
 
             res.send({message:"order placed",data:savedorder});
     }
     catch(err){
 
         res.send({message:"some error"});
+        console.log(err);
     }
    
 
@@ -32,8 +32,8 @@ const placeorder = async(req,res)=>{
 const userorder = async (req,res)=>{
 const body=req.body.email;
 try{
-    const userorderdata = await orderModel.find({'orderuserdetails.email':body});
-    console.log(userorderdata);
+    const userorderdata = await orderModel.find({'orderuserdetails.email':body}).sort({_id:-1});
+    
     res.send(userorderdata);
 
 }
@@ -49,10 +49,9 @@ catch(err){
 const alluserorder =async(req,res)=>{
 
 try{
-    const allorderdata = await orderModel.find();
+    const allorderdata = await orderModel.find().sort({_id:-1});
 
     res.send(allorderdata);
-    console.log(allorderdata);
 }
 catch(err){
 res.send("error from server",err)
