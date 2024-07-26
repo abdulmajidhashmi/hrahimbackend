@@ -12,10 +12,12 @@ const createproduct = async (req, res) => {
       image3: body.image3,
       image4: body.image4,
       description: body.description,
+      category:body.category,
     });
-    return res.status(201).json("entry created");
+   
+    res.send({message:"Product Created successfully",success:true});
   } catch (err) {
-    return res.status(402).json(err);
+    res.send({message:"Internal server Error",success:false});
   }
 };
 
@@ -23,9 +25,10 @@ const findproduct = async (req, res) => {
   try {
     const product = await productModel.find();
   
-    res.status(201).json(product);
+    
+    res.send({message:"prouducts found",success:true,data:product});
   } catch (err) {
-    res.status(404).json(err);
+    res.send({message:"Internal server Error",success:false});
   }
 };
 
