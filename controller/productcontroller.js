@@ -54,7 +54,7 @@ const deleteproduct =async(req,res)=>{
   res.send({message:"product deleted",success:true,data:deletedproduct});
 }catch(err){
 
-  res.send({message:"Internam server error",success:false})
+  res.send({message:"Internal server error",success:false})
 }
 }
 module.exports = { editproduct, createproduct, findproduct ,deleteproduct};
