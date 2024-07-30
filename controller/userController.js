@@ -32,7 +32,7 @@ const createuserentry = async (req, res) => {
         return res.send({ success:true,message: "entry created" });
     }
     catch (err) {
-        return res.send({ success:false,message: "not created", error: err });
+        return res.send({ success:false,message: "not created", data: err });
 
     }
 }
@@ -45,19 +45,19 @@ try{
     console.log(token)
     if(!user){
 
-        return res.status(402).json({message:"user does not exist"});
+        return res.status(402).json({message:"user does not exist",success:false});
     }
     if(user.password!==req.body.password){
 
-        return res.status(402).json({message:"password not matched"});
+        return res.status(402).json({message:"password not matched",success:false});
     }
     
    const newuser =   await userModel.findOne({email:req.body.email}).select('-password');
-    return res.status(202).json({message:newuser,data:token});
+    return res.status(202).json({message:"user logged in",success:true,data:token});
 }
 catch(err){
 
-    return res.status(402).json({message:"error is there"})
+    return res.status(402).json({message:"error is there",success:false})
 }
 
     
