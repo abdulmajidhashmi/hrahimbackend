@@ -34,7 +34,7 @@ const body=req.body.email;
 try{
     const userorderdata = await orderModel.find({'orderuserdetails.email':body}).sort({_id:-1});
     
-    res.send(userorderdata);
+    res.send({message:"data fetched",success:true,data:userorderdata});
 
 }
 catch(err){
