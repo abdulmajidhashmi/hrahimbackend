@@ -4,7 +4,7 @@ const {createproduct,findproduct,editproduct, deleteproduct} =require('../contro
 const adminauth = require("../middlewares/adminauth.js");
 
 
-productrouter.post('/',adminauth,createproduct);
+productrouter.post('/',adminauth,);
 productrouter.get('/',adminauth,findproduct);
 productrouter.get('/prod',findproduct);
 productrouter.put('/edit',adminauth,editproduct);

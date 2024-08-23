@@ -8,6 +8,7 @@ const productrouter = require('./routes/productroute')
 const userrouter = require('./routes/userRoutes');
 const orderrouter = require('./routes/orderRoute');
 const adminauth = require('./middlewares/adminauth');
+const notificationRouter = require('./routes/notificationRoute');
 
 
 app.use(cors());
@@ -16,6 +17,7 @@ mongoconnect();
 app.use('/productcreate',productrouter);
 app.use('/user',userrouter);
 app.use('/order',orderrouter);
+app.use('/notify',notificationRouter);
 app.get("/",(req,res)=>{
 
     res.status(200).json("hi my name is abdul majid");

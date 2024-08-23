@@ -1,3 +1,4 @@
+const notificationModel = require("../model/notification");
 const productModel = require("../model/productmodel");
 const createproduct = async (req, res) => {
   const body = req.body;
@@ -36,11 +37,39 @@ const editproduct = async (req,res) => {
   const body = req.body;
 
   try {
-   const updateproduct= await productModel.findByIdAndUpdate(body._id,body);
-        res.send({message:"updated successfully",data:updateproduct,success:true});
+
+    const productdata = await productModel.findById(body._id);
+   const updateproduct= await productModel.findByIdAndUpdate(body._id,body,{new:true});
+        
+
+
+        //notification 
+        
+        
+
+        if(updateproduct.price<productdata.price){
+
+        const notificationmessage = `The Price of ${updateproduct.name} has dropped from ${productdata.price} to ${updateproduct.price}`;
+
+      const updateddata =   await notificationModel.create({
+        productId:updateproduct._id,
+notification:notificationmessage
+          
+        });
+
+        console.log("this data is updated",updateddata);
+      }
+
+      
+
+      
+
+      res.send({message:"updated successfully",data:updateproduct,success:true});
+      
 
   } catch (err) {
     res.send({message:"internal server error",success:false});
+    console.log(err);
   }
 };
 
