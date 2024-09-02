@@ -86,4 +86,18 @@ const deleteproduct =async(req,res)=>{
   res.send({message:"Internal server error",success:false})
 }
 }
-module.exports = { editproduct, createproduct, findproduct ,deleteproduct};
+
+const findoneproduct =async(req,res)=>{
+
+    body=req.params.id;
+try{
+    const data = await productModel.findById(body);
+    res.send({message:"prouduct found",success:true,data:data});
+    
+}catch(err){
+
+  res.send({message:"Internal server error",success:false});
+}
+
+}
+module.exports = { editproduct, createproduct, findproduct ,deleteproduct,findoneproduct};
