@@ -1,4 +1,5 @@
 const notificationModel = require("../model/notification");
+const ProductModel = require("../model/productmodel");
 const productModel = require("../model/productmodel");
 const createproduct = async (req, res) => {
   const body = req.body;
@@ -23,11 +24,13 @@ const createproduct = async (req, res) => {
 };
 
 const findproduct = async (req, res) => {
+
+  const {page,limit} = req.query;
   try {
-    const product = await productModel.find();
+    const product = await productModel.find().limit(parseInt(limit)).skip((parseInt(page)-1) *parseInt(limit));
   
-    
-    res.send({message:"prouducts found",success:true,data:product});
+    const total = await ProductModel.countDocuments();
+    res.send({message:"prouducts found",success:true,data:product,total:total});
   } catch (err) {
     res.send({message:"Internal server Error",success:false});
   }
