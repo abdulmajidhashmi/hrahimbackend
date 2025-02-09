@@ -103,4 +103,22 @@ try{
 }
 
 }
-module.exports = { editproduct, createproduct, findproduct ,deleteproduct,findoneproduct};
+
+
+const fetchproduct =async(req,res)=>{
+
+  const {value}=req.body;
+
+  try{
+console.log(value);
+
+const data = await productModel.find({ name: { $regex: value, $options: "i" } });
+res.send({message:"Data fetched",success:true,data:data});
+
+
+  }catch(err){
+
+    res.send({message:"server error",success:false,data:"no data"});
+  }
+}
+module.exports = { editproduct, createproduct, findproduct ,deleteproduct,findoneproduct,fetchproduct};

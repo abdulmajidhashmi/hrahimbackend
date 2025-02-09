@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 require("dotenv").config();
 app.use(express.json());
-const cors=require('cors');
+const cors = require('cors');
 const mongoconnect = require('./config/db');
 const productrouter = require('./routes/productroute')
 const userrouter = require('./routes/userRoutes');
@@ -18,13 +18,13 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 app.use(cors());
 mongoconnect();
 
-app.use('/productcreate',productrouter);
-app.use('/user',userrouter);
-app.use('/order',orderrouter);
-app.use('/notify',notificationRouter);
-app.get("/",(req,res)=>{
+app.use('/productcreate', productrouter);
+app.use('/user', userrouter);
+app.use('/order', orderrouter);
+app.use('/notify', notificationRouter);
+app.get("/", (req, res) => {
 
-    res.status(200).json("hi my name is abdul majid");
+    res.status(200).json("server is running");
 })
 
 
@@ -33,8 +33,8 @@ app.get("/",(req,res)=>{
 
 
 
-const PORT =4000;
-app.listen(PORT,()=>{
+const PORT = 4000;
+app.listen(PORT, () => {
 
     console.log("running on https://localhost:4000");
 })
